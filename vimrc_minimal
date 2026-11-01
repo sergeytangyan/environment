@@ -1,0 +1,120 @@
+" ~/.vimrc — minimal, no plugins
+
+" ---------- Basics ----------
+set nocompatible
+filetype plugin indent on
+syntax on
+set encoding=utf-8
+set hidden                      " switch files without saving first
+set backspace=indent,eol,start  " backspace works like you'd expect
+set autoread                    " reload files changed outside vim
+set updatetime=300
+set ttimeoutlen=10              " no lag after pressing Esc
+
+
+" ---------- Clipboard ----------
+" (if doesnt work, try 
+"   sudo apt update
+"   sudo apt install vim-gtk3
+" )
+set clipboard=unnamedplus       " syncs Vim’s yank, delete, and paste operations directly with your operating system’s clipboard
+
+
+" ---------- Look ----------
+" set number relativenumber
+set number
+set cursorline
+set scrolloff=8                 " keep 8 lines visible around the cursor
+set signcolumn=yes
+set laststatus=2                " always show the status line
+set showcmd
+set splitright splitbelow       " new splits open right/below
+set linebreak                   " wrap long lines at word boundaries
+set list listchars=tab:»\ ,trail:·,nbsp:␣
+silent! colorscheme habamax     " built-in dark theme (Vim 9+)
+
+
+" ---------- Search ----------
+set incsearch hlsearch
+set ignorecase smartcase        " case-insensitive unless you type a capital
+
+
+" ---------- Indentation (2 spaces, JS-friendly) ----------
+set expandtab tabstop=2 shiftwidth=2 softtabstop=2
+set autoindent
+
+
+" ---------- Files ----------
+set noswapfile nobackup
+" Cleaner built-in file explorer
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+
+
+" ---------- Built-in file finding (no fzf needed) ----------
+set path+=**                    " :find searches subfolders
+set wildmenu wildmode=longest:full,full
+set wildignore+=*/node_modules/*,*/.git/*,*/dist/*,*/build/*
+
+" Return to the last cursor position when reopening a file
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+
+" ---------- Keys (leader = Space) ----------
+let mapleader = " "
+nnoremap <leader>b :ls<CR>:b<Space>
+nnoremap <leader>e :Explore<CR>
+
+" find file
+nnoremap <leader>f :find<Space>
+" quick save
+nnoremap <leader>w :w<CR>
+
+" Move between splits with Ctrl + h/j/k/l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Create a dedicated shortcut for pure delete (e.g., Leader + d)
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+" Clear search highlights
+nnoremap <leader>h :nohlsearch<CR>
+
+" Keep the selection after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Move selected blocks up/down in Visual mode with J/K
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Disable Space Bar Movement
+nnoremap <Space> <Nop>
+
+" o inserts a blank line below, moves to it, stays in Normal mode, and scrolls
+nnoremap <silent> o o<Esc>
+
+" O inserts a blank line above, moves to it, stays in Normal mode, and scrolls
+nnoremap <silent> O O<Esc>
+
+
+
+" ------------- Status Line ----------------
+" Define a custom subtle background color for the status line
+" (Adjust guibg/ctermbg to your preferred tone—dark gray, slate blue, subtle charcoal, etc.)
+highlight MyStatusLineNC guifg=#c0c0c0 guibg=#2d2d2d ctermfg=7 ctermbg=236
+highlight MyStatusLine   guifg=#ffffff guibg=#3a3a3a ctermfg=15 ctermbg=238
+
+" Apply your custom highlight groups to the status line building blocks
+set statusline=
+set statusline+=%#MyStatusLine#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#MyStatusLineNC#
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ %l:%c\
+
