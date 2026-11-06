@@ -10,7 +10,7 @@ set backspace=indent,eol,start  " backspace works like you'd expect
 set autoread                    " reload files changed outside vim
 set updatetime=300
 set ttimeoutlen=10              " no lag after pressing Esc
-
+set showcmd
 
 " ---------- Clipboard ----------
 " Syncs Vim's yank, delete, and paste operations with the OS clipboard.
