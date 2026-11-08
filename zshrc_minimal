@@ -2,3 +2,7 @@ PROMT='%2~ $ '
 
 alias ll="ls -alh"
 
+if (( $+commands[fzf] )); then
+  # ctrl+r; ctrl+t;
+  source <(fzf --zsh)   # example: fzf ≥ 0.48 key bindings + completion
+fi
