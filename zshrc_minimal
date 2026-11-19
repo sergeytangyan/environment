@@ -1,6 +1,6 @@
 PROMT='%2~ $ '
 
-alias ll="ls -alh"
+alias ll="ls -alh --group-directories-first"
 
 if (( $+commands[fzf] )); then
   # ctrl+r; ctrl+t;
