@@ -1,0 +1,9 @@
+[plugin]
+ prepend_previewers = [
+   { url = "*/", run = "noop" },
+   { url = "*.tar",    run = 'piper -- tar -tvf "$1"' },
+   { url = "*.tar.gz", run = 'piper -- tar -tvf "$1"' },
+   { url = "*.tgz",    run = 'piper -- tar -tvf "$1"' },
+   { url = "*.zip",    run = 'piper -- zipinfo "$1"' },
+ ]
+
