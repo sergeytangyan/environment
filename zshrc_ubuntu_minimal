@@ -1,0 +1,13 @@
+PROMT='%2~ $ '
+
+alias ll="ls -alhF --group-directories-first"
+
+if (( $+commands[fzf] )); then
+  # ctrl+r; ctrl+t;
+  source <(fzf --zsh)   # example: fzf ≥ 0.48 key bindings + completion
+fi
+
+# Disable XON/XOFF flow control so Ctrl+S doesn't freeze the terminal
+# (and frees Ctrl+S for forward history search)
+[[ $- == *i* ]] && stty -ixon
+
