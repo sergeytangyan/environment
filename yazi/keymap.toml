@@ -1,9 +1,12 @@
 [mgr]
- prepend_keymap = [
-   #{ on = "<S-Enter>", run = "open",               desc = "Open with default app" },
-   { on = "!", run = 'shell "$SHELL" --block', desc = "Open shell here" },
-   { on = "<Enter>", run = "enter", desc = "Enter child directory" },
-   { on = "<S-Enter>",   run = "open --interactive", desc = "Open with menu" },
-   { on = "o", run = "open --interactive", desc = "Open with menu" },
- ]
+prepend_keymap = [
+  # { on = "<S-Enter>", run = "open",               desc = "Open with default app" },
+  { on = "!", run = 'shell "$SHELL" --block', desc = "Open shell here" },
+  { on = "<Enter>", run = "enter", desc = "Enter child directory" },
+  { on = "<S-Enter>",   run = "open --interactive", desc = "Open with menu" },
+  { on = "o", run = "open --interactive", desc = "Open with menu" },
 
+  # archiving
+  { on = [ "c", "t" ], run = 'shell -- f=%h; tar -cf "${f##*/}.tar" -C "${f%/*}" "${f##*/}"', desc = "Archive as .tar" },
+  { on = [ "c", "g" ], run = 'shell -- f=%h; tar -czf "${f##*/}.tar.gz" -C "${f%/*}" "${f##*/}"', desc = "Archive as .tar.gz" },
+]
